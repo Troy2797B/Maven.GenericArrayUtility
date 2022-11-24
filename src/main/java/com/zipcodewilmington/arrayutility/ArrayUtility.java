@@ -11,16 +11,17 @@ import java.util.List;
  * Created by leon on 3/6/18.
  */
 public class ArrayUtility <T> {
-    T [] inputArray;
-    public ArrayUtility(T[] inputArray){
+    T[] inputArray;
+
+    public ArrayUtility(T[] inputArray) {
         this.inputArray = inputArray;
     }
 
     public Integer getNumberOfOccurrences(T valueToEvaluate) {
         Integer results = 0;
         Integer numOfOccurences = 0;
-        for (T thing : inputArray){
-            if (thing == valueToEvaluate){
+        for (T thing : inputArray) {
+            if (thing == valueToEvaluate) {
                 numOfOccurences++;
             }
         }
@@ -32,14 +33,13 @@ public class ArrayUtility <T> {
         Integer mostCommon = 0;
         ArrayList<T> newInputArray = new ArrayList<>(Arrays.asList(inputArray));
         newInputArray.addAll(Arrays.asList(arrayToMerge));
-        for (int i = 0; i < newInputArray.size() - 1 ; i++){
+        for (int i = 0; i < newInputArray.size() - 1; i++) {
             mostCommon = Collections.frequency(newInputArray, newInputArray.get(i));
-            if(newInputArray.get(i + 1) == null){
+            if (newInputArray.get(i + 1) == null) {
                 results = newInputArray.get(i);
-            }
-            else if (Collections.frequency(newInputArray, newInputArray.get(i)) <
-                    Collections.frequency(newInputArray, newInputArray.get(i +1))){
-                mostCommon= Collections.frequency(newInputArray, newInputArray.get(i + 1));
+            } else if (Collections.frequency(newInputArray, newInputArray.get(i)) <
+                    Collections.frequency(newInputArray, newInputArray.get(i + 1))) {
+                mostCommon = Collections.frequency(newInputArray, newInputArray.get(i + 1));
                 results = newInputArray.get(i + 1);
             }
         }
@@ -55,14 +55,26 @@ public class ArrayUtility <T> {
     }
 
     public T[] removeValue(T valueToRemove) {
+        List<T> holdingChamber = new ArrayList<>();
 //        T[] newArray = new T[inputArray.length - getNumberOfOccurrences(valueToRemove)];
-
-        ArrayList genericArray = new ArrayList(inputArray.length - getNumberOfOccurrences(valueToRemove));
-        for(int i = 0; i < inputArray.length; i++){
-            if (inputArray[i] == valueToRemove){
-                inputArray[i] = genericArray.get(i);
+//        ArrayList genericArray = new ArrayList(inputArray.length - getNumberOfOccurrences(valueToRemove));
+        for (int i = 0; i < inputArray.length; i++) {
+            if (!inputArray[i].equals(valueToRemove)) {
+                holdingChamber.add(valueToRemove);
             }
         }
+        T[] newArray = Arrays.copyOf(inputArray, holdingChamber.size());
+        for (int i = 0, j = 0; i < newArray.length; i++, j++) {
+            if (newArray[i].equals(valueToRemove)) {
+                newArray[i] = inputArray[j + 1];
+                j++;
+            } else if (inputArray[j].equals(valueToRemove)) {
+                newArray[i] = inputArray[j + 1];
+            } else {
+                newArray[i] = inputArray[j];
+            }
+
+
 //        T[] arr2 = ;
 //        int j = 0;
 //        for (int i = 0; i < inputArray.length; i++){
@@ -75,17 +87,14 @@ public class ArrayUtility <T> {
 //            }
 //        }
 //        return arr2;
-//        List<T> holdingChamber = Arrays.asList(inputArray);
-//        for(int i = 0; i < holdingChamber.size(); i++){
-//            if (holdingChamber.get(i) == valueToRemove){
-//                holdingChamber.remove(i);
-//            }
-//        }
+
+
 //        T[] objArray = new T[holdingChamber.size()];
-        //for each thing in the array, we could move that thing to an external
-        //arrayList. then, the element that matches value to remove has to stay
-        //in the old array. turn the arraylist back into an array and we are all
-        //set...I think!
+            //for each thing in the array, we could move that thing to an external
+            //arrayList. then, the element that matches value to remove has to stay
+            //in the old array. turn the arraylist back into an array and we are all
+            //set...I think!
 //        return (T[]) holdingChamber.toArray();
+        }return newArray;
     }
 }
