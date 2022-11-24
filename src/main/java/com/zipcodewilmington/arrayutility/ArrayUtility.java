@@ -55,7 +55,26 @@ public class ArrayUtility <T> {
     }
 
     public T[] removeValue(T valueToRemove) {
-        return null;
+//        T[] newArray = new T[inputArray.length - getNumberOfOccurrences(valueToRemove)];
+
+        ArrayList genericArray = new ArrayList(inputArray.length - getNumberOfOccurrences(valueToRemove));
+        for(int i = 0; i < inputArray.length; i++){
+            if (inputArray[i] == valueToRemove){
+                inputArray[i] = genericArray.get(i);
+            }
+        }
+//        T[] arr2 = ;
+//        int j = 0;
+//        for (int i = 0; i < inputArray.length; i++){
+//            if(inputArray[i] == valueToRemove){
+//                arr2[i] = inputArray[i + 1];
+//                j = i;
+//            } if (j < i){
+//                int k = i - j;
+//                arr2[i-k] = inputArray[i];
+//            }
+//        }
+//        return arr2;
 //        List<T> holdingChamber = Arrays.asList(inputArray);
 //        for(int i = 0; i < holdingChamber.size(); i++){
 //            if (holdingChamber.get(i) == valueToRemove){
